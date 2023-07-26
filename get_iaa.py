@@ -6,10 +6,11 @@ import sys
 from pathlib import Path
 
 def get_df(input_files):
+  print("Files provided with appropriate extension :")
   print(json.dumps(list(set(input_files)), indent = 2))
   files_csv = set([x for x in input_files if Path(x).suffix in [".csv", "txt"]])
   files_excel = set([x for x in input_files if Path(x).suffix in [".xls", ".xlsx", "ods"]])
-
+  print("Transforming into Pandas Dataframes ...")
   data_frames = [pandas.read_csv(path) for path in files_csv]
   data_frames += [pandas.read_excel(path) for path in files_excel ]
   return data_frames
@@ -32,7 +33,7 @@ def get_iaa_from_files(input_files):
           annotations.append(this_annot)
           #check double annotation
           #check all_columns ou fusion --> si colonnes exclusives
-          if cpt_line>100:break
+          #if cpt_line>100:break
       annotateurs.append(annotations)
 
   check_regularity(input_files, annotateurs, sheet_headers)

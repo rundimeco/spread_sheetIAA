@@ -1,12 +1,12 @@
 import json
 from nltk import agreement
 
-def get_iaa(annotateurs, verbose = True):
+def get_iaa(annotators, verbose = True):
   donnees = []
-  
-  for i in range(len(annotateurs)):
-    for j in range(len(annotateurs[0])):
-      donnees.append([str(i), str(j), annotateurs[i][j]])
+  print(f"Computing agreement between {len(annotators)} annotators")
+  for i in range(len(annotators)):
+    for j in range(len(annotators[0])):
+      donnees.append([str(i), str(j), annotators[i][j]])
   ratingtask = agreement.AnnotationTask(data=donnees)
   results = { 
   "kappa "  : ratingtask.kappa(),
@@ -17,13 +17,13 @@ def get_iaa(annotateurs, verbose = True):
     print(json.dumps(results, indent = 2))
   return results
 
-def  check_regularity(input_files, annotateurs, sheet_headers):
+def  check_regularity(input_files, annotators, sheet_headers):
   #Check number of lines
-  NB_annots = [len(x) for x in annotateurs]
-  assert min(NB_annots) == max(NB_annots), size_error(input_files, NB_annots) #
-  
+  NB_annots = [len(x) for x in annotators]
+  assert min(NB_annots) == max(NB_annots), size_error(input_files, NB_annots) 
+   
+  print("Headers found :")
   print(sheet_headers)
-  
   #Check headers regularity
   regular_sheet_headers = ["-".join([str(y) for y in x ]) for x in sheet_headers]
   assert len(set(regular_sheet_headers))==1, header_errors(regular_sheet_headers) 
