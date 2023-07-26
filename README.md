@@ -1,7 +1,8 @@
 # spread_sheetIAA
-Inter Annotator Agreement on Excel/Calc/CSV files
+Inter Annotator Agreement on Excel/Calc/CSV files.
+Compares the annotations present in 2+ files
 
-Compares the annoations of 2+ files
+Designed for NER annotation but can probably used for other tasks
 
 Command line usage :
 - python get_iaa.py --> example on dummy_data
