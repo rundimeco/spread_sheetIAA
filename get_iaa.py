@@ -11,7 +11,13 @@ def get_df(input_files):
   files_csv = set([x for x in input_files if Path(x).suffix in [".csv", "txt"]])
   files_excel = set([x for x in input_files if Path(x).suffix in [".xls", ".xlsx", "ods"]])
   print("Transforming into Pandas Dataframes ...")
-  data_frames = [pandas.read_csv(path) for path in files_csv]
+  try:
+    data_frames = [pandas.read_csv(path) for path in files_csv]
+  except:
+    print("Debugging Pandas error")
+    for path in files_csv :
+        print(path)
+        data_frames = [pandas.read_csv(path, delimiter = ";") for path in files_csv]
   data_frames += [pandas.read_excel(path) for path in files_excel ]
   return data_frames
 
