@@ -3,6 +3,13 @@ from nltk import agreement
 import pandas
 from pathlib import Path
 
+class Struct:
+  def __init__(self, **entries):
+    self.__dict__.update(entries)
+
+def get_basic_options():
+    return Struct(**{"force":False, "limit":0})
+
 def get_df(input_files):
   print("Files provided with appropriate extension :")
   print(json.dumps(list(set(input_files)), indent = 2))
@@ -18,7 +25,7 @@ def get_df(input_files):
   data_frames += [pandas.read_excel(path) for path in files_excel ]
   return data_frames
 
-def get_iaa_from_files(input_files, options):
+def get_iaa_from_files(input_files, options=get_basic_options()):
   data_frames = get_df(input_files)
   
   annotators = []
